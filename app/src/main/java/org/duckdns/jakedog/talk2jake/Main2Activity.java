@@ -19,7 +19,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        Button btn = (Button) findViewById(R.id.button);
+        Button btn = (Button) findViewById(R.id.doitButton);
         btn.setOnClickListener(new View.OnClickListener() {
 
             //start execution of ssh commands
@@ -38,6 +38,7 @@ public class Main2Activity extends AppCompatActivity {
 
                     }	// onExampleAsyncTaskFinished()
                 });
+                asyncTask.execute();
 
             }	// onClick(.)
         }); // View.OnClickListener()
@@ -79,9 +80,12 @@ public class Main2Activity extends AppCompatActivity {
 
         public void executeSSHcommand(){
             String user = "kurtis";
-            String password = "xxx";
+            String password = "get4dont1";
             String host = "192.168.0.210";
             int port=22;
+
+            System.out.println("kwr: running executeSSHcommand()");
+
             try{
 
                 JSch jsch = new JSch();
@@ -93,13 +97,14 @@ public class Main2Activity extends AppCompatActivity {
                 ChannelExec channel = (ChannelExec)session.openChannel("exec");
                 channel.setCommand("uptime");
                 channel.connect();
-                System.out.println(channel);
+                System.out.println("kwr: "+channel);
                 channel.disconnect();
 
             }
             catch(JSchException e){
                 // show the error in the UI
                 e.printStackTrace();
+                System.out.println("kwr: exception");
             }
 
         }   // executeSSHcommand()
